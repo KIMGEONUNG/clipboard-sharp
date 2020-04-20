@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Clipboard": {
+      "commandName": "Project",
+      "commandLineArgs": "-ci AWS_COMAR"
+    }
+  }
+}
