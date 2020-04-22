@@ -30,5 +30,8 @@ namespace ToClipboard
 
         [Option('i', "input", Required = false, HelpText = "input")]
         public string Input { get; set; }
+
+        [Option('s', "std", Required = false, SetName = "std", HelpText = "input")]
+        public bool Sto { get; set; }
     }
 }

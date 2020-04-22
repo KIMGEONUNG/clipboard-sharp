@@ -27,6 +27,20 @@ namespace ToClipboard
                           Console.WriteLine("Copy \"" + val + "\" To Clipboard");
                       }
                   }
+                  else if (o.Sto)
+                  {
+                      string stack = "";
+                      while (true)
+                      {
+                          string line = Console.ReadLine();
+                          if (line is null || line.Contains('\u0004'))
+                          {
+                              break;
+                          }
+                          stack += line;
+                      }
+                      Clipboard.SetText(stack);
+                  }
                   else if (o.DeleteCustom)
                   {
                       if (!File.Exists(CONFIG_FILE_PATH))
@@ -35,10 +49,10 @@ namespace ToClipboard
                       }
                       string key = o.CustomKey ?? throw new ArgumentNullException();
                       JObject jo = JObject.Parse(File.ReadAllText(CONFIG_FILE_PATH));
-                      if(!jo.ContainsKey(key))
+                      if (!jo.ContainsKey(key))
                       {
                           Console.WriteLine("No such a custom key exist");
-                          return;   
+                          return;
                       }
                       jo.Remove(key);
                       File.WriteAllText(CONFIG_FILE_PATH, jo.ToString());
@@ -53,10 +67,10 @@ namespace ToClipboard
                       string key = o.CustomKey ?? throw new ArgumentNullException();
                       string value = o.CustomValue ?? throw new ArgumentNullException();
                       JObject jo = JObject.Parse(File.ReadAllText(CONFIG_FILE_PATH));
-                      if(jo.ContainsKey(key))
+                      if (jo.ContainsKey(key))
                       {
                           Console.WriteLine("Same key already exits");
-                          return;   
+                          return;
                       }
                       jo[key] = value;
 
@@ -84,7 +98,7 @@ namespace ToClipboard
                   else if (o.Print)
                   {
                       string text = Clipboard.GetText();
-                      Console.WriteLine(text ?? "No clipboard contents"); 
+                      Console.WriteLine(text ?? "No clipboard contents");
                   }
               });
         }
